@@ -1,12 +1,10 @@
 package com.devteria.identity.entity;
 
-import java.time.LocalDate;
-import java.util.Set;
-
 import jakarta.persistence.*;
-
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -14,7 +12,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Entity
+@Entity(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -22,9 +20,6 @@ public class User {
 
     String username;
     String password;
-    String firstName;
-    LocalDate dob;
-    String lastName;
 
     @ManyToMany
     Set<Role> roles;

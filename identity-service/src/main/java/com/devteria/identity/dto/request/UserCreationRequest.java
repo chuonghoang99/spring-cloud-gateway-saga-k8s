@@ -1,13 +1,11 @@
 package com.devteria.identity.dto.request;
 
-import java.time.LocalDate;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Size;
-
-import com.devteria.identity.validator.DobConstraint;
-
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -21,9 +19,12 @@ public class UserCreationRequest {
     @Size(min = 6, message = "INVALID_PASSWORD")
     String password;
 
+    String email;
+
     String firstName;
     String lastName;
 
-    @DobConstraint(min = 10, message = "INVALID_DOB")
+    // @DobConstraint(min = 10, message = "INVALID_DOB")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     LocalDate dob;
 }

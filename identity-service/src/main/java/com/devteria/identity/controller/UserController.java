@@ -1,21 +1,18 @@
 package com.devteria.identity.controller;
 
-import java.util.List;
-
-import jakarta.validation.Valid;
-
-import org.springframework.web.bind.annotation.*;
-
-import com.devteria.identity.dto.request.ApiResponse;
 import com.devteria.identity.dto.request.UserCreationRequest;
 import com.devteria.identity.dto.request.UserUpdateRequest;
+import com.devteria.identity.dto.response.ApiResponse;
 import com.devteria.identity.dto.response.UserResponse;
 import com.devteria.identity.service.UserService;
-
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -25,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
     UserService userService;
 
-    @PostMapping
+    @PostMapping("/registration")
     ApiResponse<UserResponse> createUser(@RequestBody @Valid UserCreationRequest request) {
         return ApiResponse.<UserResponse>builder()
                 .result(userService.createUser(request))

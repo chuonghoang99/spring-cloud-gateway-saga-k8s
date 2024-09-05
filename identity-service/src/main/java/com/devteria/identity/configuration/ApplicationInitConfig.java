@@ -1,24 +1,22 @@
 package com.devteria.identity.configuration;
 
-import java.util.HashSet;
-
+import com.devteria.identity.constant.PredefinedRole;
+import com.devteria.identity.entity.Role;
+import com.devteria.identity.entity.User;
+import com.devteria.identity.repository.RoleRepository;
+import com.devteria.identity.repository.UserRepository;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.devteria.identity.constant.PredefinedRole;
-import com.devteria.identity.entity.Role;
-import com.devteria.identity.entity.User;
-import com.devteria.identity.repository.RoleRepository;
-import com.devteria.identity.repository.UserRepository;
-
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
-import lombok.extern.slf4j.Slf4j;
+import java.util.HashSet;
 
 @Configuration
 @RequiredArgsConstructor
@@ -26,19 +24,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ApplicationInitConfig {
 
-    PasswordEncoder passwordEncoder;
-
     @NonFinal
     static final String ADMIN_USER_NAME = "admin";
-
     @NonFinal
     static final String ADMIN_PASSWORD = "admin";
+    PasswordEncoder passwordEncoder;
 
     @Bean
     @ConditionalOnProperty(
             prefix = "spring",
             value = "datasource.driverClassName",
-            havingValue = "com.mysql.cj.jdbc.Driver")
+            havingValue = "org.postgresql.Driver")
     ApplicationRunner applicationRunner(UserRepository userRepository, RoleRepository roleRepository) {
         log.info("Initializing application.....");
         return args -> {
