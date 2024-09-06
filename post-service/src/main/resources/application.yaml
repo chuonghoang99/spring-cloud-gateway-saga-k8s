@@ -1,5 +1,5 @@
 server:
-  port: 8083
+  port: 8084
   servlet:
     context-path: /post
 spring:
@@ -7,4 +7,4 @@ spring:
     name: post-service
   data:
     mongodb:
-      uri: mongodb://root:root@localhost:27017/post-service?authSource=admin
+      uri: mongodb://root:mongo123456@localhost:27017/post-service?authSource=admin

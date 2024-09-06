@@ -22,10 +22,16 @@ spring:
             - Path=${app.api-prefix}/profile/**
           filters:
             - StripPrefix= 2
-        - id: notification-service
+        - id: notification_service
           uri: http://localhost:8082
           predicates:
             - Path=${app.api-prefix}/notification/**
+          filters:
+            - StripPrefix= 2
+        - id: post_service
+          uri: http://localhost:8084
+          predicates:
+            - Path=${app.api-prefix}/post/**
           filters:
             - StripPrefix= 2
 
