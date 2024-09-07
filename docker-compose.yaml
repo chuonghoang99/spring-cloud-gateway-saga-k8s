@@ -1,5 +1,45 @@
-version: "3"
+version: "3.8"
 services:
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: chuonghoang  # Set your PostgreSQL username
+      POSTGRES_PASSWORD: password123  # Set your PostgreSQL password
+      POSTGRES_DB: my_database  # Default database to create
+    ports:
+      - "54322:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data2
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password123
+    volumes:
+      - mongo_data:/data/db
+    restart: unless-stopped
+
+
+  neo4j:
+    image: neo4j:latest
+    container_name: neo4j
+    environment:
+      NEO4J_AUTH: neo4j/password123 # Default username and password
+    ports:
+      - "7474:7474"  # Neo4j browser port
+      - "7687:7687"  # Bolt protocol port
+    volumes:
+      - neo4j_data:/data  # Persistent storage for Neo4j data
+      - neo4j_logs:/logs  # Persistent storage for Neo4j logs
+    restart: unless-stopped
+
   kafka:
     image: 'bitnami/kafka:3.7.0'
     container_name: kafka
@@ -14,3 +54,15 @@ services:
       - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNAL://localhost:9094
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  mongo_data:
+  neo4j_data:
+  neo4j_logs:
+
+networks:
+  my_network:
+    driver: bridge

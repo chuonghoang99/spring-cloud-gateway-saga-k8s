@@ -11,10 +11,10 @@ spring:
       ddl-auto: update
     show-sql: true
   datasource:
-    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/postgres}
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/my_database}
     driverClassName: org.postgresql.Driver
-    username: ${POSTGRES_USER:chuonghoang}
-    password: 123456
+    username: ${POSTGRES_USER:admin}
+    password: password123
   kafka:
     bootstrap-servers: localhost:9094
     producer:
